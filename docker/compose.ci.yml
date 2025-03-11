@@ -1,0 +1,24 @@
+
+volumes:
+  jenkins_home:
+
+services:
+  controller:
+    build:
+      dockerfile: docker/Dockerfile.controller
+      context: ../
+      tags:
+        - mj0nez/jenkins-ci:${JENKINS_VERSION}-controller
+    image: mj0nez/jenkins-ci:${JENKINS_VERSION}-controller
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    ports:
+      - 8080:8080
+      - 50000:50000
+
+  agent:
+    build:
+      dockerfile: docker/Dockerfile.agent
+      context: ../
+      tags:
+        - mj0nez/jenkins-ci:${JENKINS_VERSION}-agent

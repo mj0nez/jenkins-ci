@@ -1,0 +1,8 @@
+plugins:
+  - artifactId: git
+    source:
+      version: latest
+  - artifactId: ant
+    source:
+      version: latest
+  - artifactId: build-timeout

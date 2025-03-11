@@ -1,0 +1,58 @@
+# syntax=docker/dockerfile:1
+#
+FROM jenkins/agent:bookworm-jdk21 AS debian
+
+USER root
+
+RUN apt-get update \
+    && apt-get install -y lsb-release
+RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
+    https://download.docker.com/linux/debian/gpg
+
+RUN echo "deb [arch=$(dpkg --print-architecture) \
+    signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
+    https://download.docker.com/linux/debian \
+    $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+
+RUN apt-get update \
+    && apt-get install -y \
+        docker-ce \
+        docker-ce-cli \
+        containerd.io \
+        docker-buildx-plugin \
+        docker-compose-plugin
+
+COPY --chown=jenkins:jenkins docker/basefs /
+
+# USER jenkins
+
+ENTRYPOINT [ "/usr/local/bin/entrypoint-agent" ]
+
+
+# FROM jenkins/agent:alpine3.21-jdk21 AS alpine
+
+# USER root
+
+# RUN apk update \
+#     && add -y lsb-release
+# RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
+#     https://download.docker.com/linux/debian/gpg
+
+# RUN echo "deb [arch=$(dpkg --print-architecture) \
+#     signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
+#     https://download.docker.com/linux/debian \
+#     $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+
+# RUN apt-get update \
+#     && apt-get install -y \
+#     docker-ce \
+#     docker-ce-cli \
+#     containerd.io \
+#     docker-buildx-plugin \
+#     docker-compose-plugin
+
+# COPY --chown=jenkins:jenkins docker/basefs /
+
+# # USER jenkins
+
+# ENTRYPOINT [ "/usr/local/bin/entrypoint-agent" ]

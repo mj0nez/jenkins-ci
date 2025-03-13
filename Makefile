@@ -16,7 +16,7 @@ start-%:
 
 # build with github actions
 ci-build:
-	docker comose build --pull --push
+	docker compose build --pull --push
 .PHONY: ci-build
 
 

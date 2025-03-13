@@ -1,3 +1,6 @@
+networks:
+  jenkins:
+
 services:
   controller:
     build:
@@ -7,21 +10,21 @@ services:
         - mj0nez/jenkins-ci:${JENKINS_VERSION}-controller
     image: mj0nez/jenkins-ci:${JENKINS_VERSION}-controller
 
-  agent-debian:
+  # agent-debian:
+  #   build:
+  #     dockerfile: docker/Dockerfile.agent-debian
+  #     context: ../
+  #     target: all-mighty
+  #     tags:
+  #       - mj0nez/jenkins-agent:${JENKINS_VERSION}-bookworm
+  #   image: mj0nez/jenkins-agent:${JENKINS_VERSION}-bookworm
+
+  agent-alpine:
     build:
-      dockerfile: docker/Dockerfile.agent-debian
+      dockerfile: docker/Dockerfile.agent-alpine
       context: ../
       target: all-mighty
       tags:
-        - mj0nez/jenkins-agent:${JENKINS_VERSION}-bookworm
-    image: mj0nez/jenkins-agent:${JENKINS_VERSION}-bookworm
-
-  # # TODO: installation of Docker
-  # agent-alpine:
-  #   build:
-  #     dockerfile: docker/Dockerfile.agent-alpine
-  #     context: ../
-  #     target: alpine
-  #     tags:
-  #       - mj0nez/jenkins-agent:${JENKINS_VERSION}-alpine
-  #   image: mj0nez/jenkins-agent:${JENKINS_VERSION}-alpine
+        - mj0nez/jenkins-agent:${JENKINS_VERSION}-alpine-all-mighty
+        - mj0nez/jenkins-agent:alpine-all-mighty
+    image: mj0nez/jenkins-agent:${JENKINS_VERSION}-alpine-all-mighty

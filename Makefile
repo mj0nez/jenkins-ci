@@ -1,7 +1,7 @@
 # renovate: datasource=docker packageName=jenkins/jenkins versioning=docker
 export JENKINS_VERSION?=2.501-jdk21
 export APP_VERSION?=latest
-# renovate: datasource=github-releases packageName=hashicorp/nomad
+# renovate-gh: datasource=github-releases packageName=hashicorp/nomad
 export NOMAD_VERSION?=1.9.5
 
 export COMPOSE_PROJECT_NAME:=jenkins

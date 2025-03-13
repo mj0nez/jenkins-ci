@@ -10,6 +10,10 @@ build:
 	docker compose build --pull ${CACHE}
 .PHONY: build
 
+start-%:
+	docker compose up $*
+.PHONY: start-%
+
 # build with github actions
 ci-build:
 	docker comose build --pull --push

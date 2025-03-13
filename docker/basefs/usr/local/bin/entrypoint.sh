@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-systemctl start docker & exec $1
+systemctl start docker & exec sleep infinity

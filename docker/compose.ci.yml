@@ -1,7 +1,3 @@
-
-volumes:
-  jenkins_home:
-
 services:
   controller:
     build:
@@ -10,15 +6,22 @@ services:
       tags:
         - mj0nez/jenkins-ci:${JENKINS_VERSION}-controller
     image: mj0nez/jenkins-ci:${JENKINS_VERSION}-controller
-    volumes:
-      - jenkins_home:/var/jenkins_home
-    ports:
-      - 8080:8080
-      - 50000:50000
 
-  agent:
+  agent-debian:
     build:
-      dockerfile: docker/Dockerfile.agent
+      dockerfile: docker/Dockerfile.agent-debian
       context: ../
+      target: all-mighty
       tags:
-        - mj0nez/jenkins-ci:${JENKINS_VERSION}-agent
+        - mj0nez/jenkins-agent:${JENKINS_VERSION}-bookworm
+    image: mj0nez/jenkins-agent:${JENKINS_VERSION}-bookworm
+
+  # # TODO: installation of Docker
+  # agent-alpine:
+  #   build:
+  #     dockerfile: docker/Dockerfile.agent-alpine
+  #     context: ../
+  #     target: alpine
+  #     tags:
+  #       - mj0nez/jenkins-agent:${JENKINS_VERSION}-alpine
+  #   image: mj0nez/jenkins-agent:${JENKINS_VERSION}-alpine

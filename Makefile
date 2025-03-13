@@ -1,5 +1,6 @@
 # renovate: datasource=docker packageName=jenkins/jenkins versioning=docker
 export JENKINS_VERSION?=2.501-jdk21
+export APP_VERSION?=latest
 
 export COMPOSE_PROJECT_NAME:=jenkins
 export COMPOSE_FILE:=docker/compose.ci.yml

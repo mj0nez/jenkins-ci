@@ -4,13 +4,26 @@ on:
   push:
     tags: ["v*.*.*"]
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Git tag to checkout.'
+        required: true
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     environment: build
+    env:
+      GIT_TAG: ${{ github.event.inputs.tag || github.ref_name }}
     steps:
       - name: Checkout
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.workflow.inputs.tag }}
+
+      - name: Checkout
+        if: ${{ github.event_name == 'push' }}
         uses: actions/checkout@v4
 
       - name: Set up QEMU
@@ -24,6 +37,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Write release version
+        run: |
+          APP_VERSION=${GITHUB_REF_NAME#v}
+          echo APP_VERSION: $APP_VERSION
+          echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
 
       - run: make ci-build
       - run: make ci-images

@@ -9,7 +9,7 @@ services:
       tags:
         - mj0nez/jenkins-ci:${JENKINS_VERSION}
         - mj0nez/jenkins-ci:${APP_VERSION}
-    image: mj0nez/jenkins-ci:${JENKINS_VERSION}
+    image: mj0nez/jenkins-ci:${APP_VERSION}
 
   # agent-debian:
   #   build:
@@ -26,7 +26,8 @@ services:
       context: ../
       target: all-mighty
       tags:
-        - mj0nez/jenkins-agent:${JENKINS_VERSION}-alpine-all-mighty
-        - mj0nez/jenkins-agent:alpine-all-mighty
         - mj0nez/jenkins-agent:${APP_VERSION}-alpine-all-mighty
-    image: mj0nez/jenkins-agent:${JENKINS_VERSION}-alpine-all-mighty
+        - mj0nez/jenkins-agent:${APP_VERSION}-alpine-all-mighty-${JENKINS_VERSION}
+        - mj0nez/jenkins-agent:alpine-all-mighty-${JENKINS_VERSION}
+        - mj0nez/jenkins-agent:alpine-all-mighty
+    image: mj0nez/jenkins-agent:${APP_VERSION}-alpine-all-mighty

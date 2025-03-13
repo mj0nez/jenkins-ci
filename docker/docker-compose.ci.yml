@@ -11,19 +11,26 @@ services:
         - mj0nez/jenkins-ci:${APP_VERSION}
     image: mj0nez/jenkins-ci:${APP_VERSION}
 
-  # agent-debian:
-  #   build:
-  #     dockerfile: docker/Dockerfile.agent-debian
-  #     context: ../
-  #     target: all-mighty
-  #     tags:
-  #       - mj0nez/jenkins-agent:${JENKINS_VERSION}-bookworm
-  #   image: mj0nez/jenkins-agent:${JENKINS_VERSION}-bookworm
+  agent-debian:
+    build:
+      dockerfile: docker/Dockerfile.agent-debian
+      context: ../
+      args:
+        NOMAD_VERSION: ${NOMAD_VERSION}
+      target: all-mighty
+      tags:
+        - mj0nez/jenkins-agent:${APP_VERSION}-bookworm-all-mighty
+        - mj0nez/jenkins-agent:${APP_VERSION}-bookworm-all-mighty-${JENKINS_VERSION}
+        - mj0nez/jenkins-agent:bookworm-all-mighty-${JENKINS_VERSION}
+        - mj0nez/jenkins-agent:bookworm-all-mighty
+    image: mj0nez/jenkins-agent:${APP_VERSION}-bookworm-all-mighty
 
   agent-alpine:
     build:
       dockerfile: docker/Dockerfile.agent-alpine
       context: ../
+      args:
+        NOMAD_VERSION: ${NOMAD_VERSION}
       target: all-mighty
       tags:
         - mj0nez/jenkins-agent:${APP_VERSION}-alpine-all-mighty

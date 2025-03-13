@@ -2,4 +2,4 @@
 
 # start the docker process but give it some time to come up
 /usr/local/bin/dockerd-entrypoint.sh &
-sleep 10 && exec $@
+sleep 5 && exec "$@"

@@ -1,41 +1,110 @@
 # syntax=docker/dockerfile:1
+FROM docker:28.0.1-dind-alpine3.21 AS dind
+
 FROM jenkins/inbound-agent:bookworm-jdk21 AS base
 
 USER root
 
-RUN apt-get update \
-    && apt-get install -y lsb-release
-RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
-    https://download.docker.com/linux/debian/gpg
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+    ca-certificates \
+    iptables \
+    pigz \
+    xz-utils \
+    # docker-dind
+    btrfs-progs \
+    e2fsprogs \
+    git \
+    iptables \
+    iproute2 \
+    net-tools \
+    openssl \
+    pigz \
+    xfsprogs \
+    # dev
+    htop \
+    procps \
+    findutils \
+    ; \
+    rm -rf /var/lib/apt/lists/*
 
-RUN echo "deb [arch=$(dpkg --print-architecture) \
-    signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
-    https://download.docker.com/linux/debian \
-    $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+RUN set -eux; \
+    groupadd -g 2375 -r docker
 
-RUN apt-get update \
-    && apt-get install -y \
-        docker-ce \
-        docker-ce-cli \
-        containerd.io \
-        docker-buildx-plugin \
-        docker-compose-plugin
+# set up subuid/subgid so that "--userns-remap=default" works out-of-the-box
+RUN set -eux; \
+    groupadd -r dockremap; \
+    adduser --system --ingroup dockremap dockremap; \
+    echo 'dockremap:165536:65536' >> /etc/subuid; \
+    echo 'dockremap:165536:65536' >> /etc/subgid
+
+# https://github.com/docker-library/docker/pull/166
+#   dockerd-entrypoint.sh uses DOCKER_TLS_CERTDIR for auto-generating TLS certificates
+#   docker-entrypoint.sh uses DOCKER_TLS_CERTDIR for auto-setting DOCKER_TLS_VERIFY and DOCKER_CERT_PATH
+# (For this to work, at least the "client" subdirectory of this path needs to be shared between the client and server containers via a volume, "docker cp", or other means of data sharing.)
+ENV DOCKER_TLS_CERTDIR=/certs
+# also, ensure the directory pre-exists and has wide enough permissions for "dockerd-entrypoint.sh" to create subdirectories, even when run in "rootless" mode
+RUN mkdir /certs /certs/client && chmod 1777 /certs /certs/client
+
+# copy binaries for docker & co
+COPY --from=dind /usr/local/bin/ /usr/local/bin/
+COPY --from=dind /usr/local/libexec/docker/cli-plugins /usr/local/libexec/docker/cli-plugins
+
+VOLUME /var/lib/docker
+
+# fix nested tini warning
+ENV TINI_SUBREAPER=
 
 COPY --chown=jenkins:jenkins docker/basefs /
 
 # USER jenkins
 
-ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+ENTRYPOINT [ "docker-init", "--", "/usr/local/bin/entrypoint-cstm.sh" ]
+CMD ["/usr/local/bin/jenkins-agent"]
+
+
+FROM debian:12.9-slim AS nomad-loader
+
+
+ARG NOMAD_VERSION
+ARG TARGETOS=linux
+ARG TARGETARCH=amd64
+
+# nomad
+ADD https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_${TARGETOS}_${TARGETARCH}.zip \
+    nomad_${NOMAD_VERSION}_${TARGETOS}_${TARGETARCH}.zip
+ADD https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_SHA256SUMS \
+    nomad_${NOMAD_VERSION}_SHA256SUMS
+ADD https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}_SHA256SUMS.sig \
+    nomad_${NOMAD_VERSION}_SHA256SUMS.sig
+
+RUN apt-get update \
+    && apt-get install --yes --no-install-recommends \
+    gnupg \
+    unzip \
+    && GNUPGHOME="$(mktemp -d)" \
+    && export GNUPGHOME \
+    && gpg --keyserver pgp.mit.edu --keyserver keys.openpgp.org --keyserver keyserver.ubuntu.com --recv-keys "C874 011F 0AB4 0511 0D02 1055 3436 5D94 72D7 468F" \
+    && gpg --batch --verify nomad_${NOMAD_VERSION}_SHA256SUMS.sig nomad_${NOMAD_VERSION}_SHA256SUMS \
+    && grep nomad_${NOMAD_VERSION}_${TARGETOS}_${TARGETARCH}.zip nomad_${NOMAD_VERSION}_SHA256SUMS | sha256sum -c \
+    && unzip -d /tmp/nomad nomad_${NOMAD_VERSION}_${TARGETOS}_${TARGETARCH}.zip \
+    && chmod +x /tmp/nomad \
+    && rm -rf "$GNUPGHOME" nomad_${NOMAD_VERSION}_${TARGETOS}_${TARGETARCH}.zip nomad_${NOMAD_VERSION}_SHA256SUMS nomad_${NOMAD_VERSION}_SHA256SUMS.sig
+
 
 FROM base AS all-mighty
 
-ENV PATH="/root/.local/bin:$PATH"
+ENV XDG_BIN_HOME=/usr/local/bin \
+    UV_NO_MODIFY_PATH=1
 
 # python related
-RUN curl -LsSf https://astral.sh/uv/install.sh | bash
-
+RUN curl -LsSf https://astral.sh/uv/install.sh | bash -s -- -v
 RUN uv --version \
     && uv python install \
-        3.11 \
-        3.12 \
-        3.13
+    3.11 \
+    3.12 \
+    3.13
+
+# nomad
+COPY --from=nomad-loader --chown="${user}":"${group}" /tmp/nomad/nomad /usr/local/bin/nomad

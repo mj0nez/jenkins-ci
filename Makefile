@@ -41,5 +41,5 @@ ci-push:
 .PHONY: ci-push
 
 ci-images:
-	docker images ls
+	docker image ls
 .PHONY: ci-images

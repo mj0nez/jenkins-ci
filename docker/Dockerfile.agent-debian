@@ -8,7 +8,19 @@ USER root
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
+    build-essential \
     ca-certificates \
+    tree \
+    jq \
+    parallel \
+    sshpass \
+    zip \
+    unzip \
+    time \
+    iputils-ping \
+    traceroute \
+    dnsutils \
+    netcat-openbsd \
     iptables \
     pigz \
     xz-utils \

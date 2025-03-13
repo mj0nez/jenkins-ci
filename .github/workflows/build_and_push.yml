@@ -16,13 +16,13 @@ jobs:
     env:
       GIT_TAG: ${{ github.event.inputs.tag || github.ref_name }}
     steps:
-      - name: Checkout
+      - name: Checkout a specific tag.
         if: ${{ github.event_name == 'workflow_dispatch' }}
         uses: actions/checkout@v4
         with:
           ref: ${{ github.workflow.inputs.tag }}
 
-      - name: Checkout
+      - name: Checkout.
         if: ${{ github.event_name == 'push' }}
         uses: actions/checkout@v4
 

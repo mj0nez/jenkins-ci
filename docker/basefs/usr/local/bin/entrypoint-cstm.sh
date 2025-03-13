@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-
-/usr/local/bin/dockerd-entrypoint.sh & exec $@
+# start the docker process but give it some time to come up
+/usr/local/bin/dockerd-entrypoint.sh &
+sleep 10 && exec $@

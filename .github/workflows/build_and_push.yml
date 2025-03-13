@@ -26,3 +26,5 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - run: make ci-build
+      - run: make ci-images
+      - run: make ci-push

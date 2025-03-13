@@ -14,12 +14,24 @@ start-%:
 	docker compose up $*
 .PHONY: start-%
 
-# build with github actions
-ci-build:
-	docker compose build --pull --push
-.PHONY: ci-build
-
+push:
+	docker compose push agent-alpine
+.PHONY: push
 
 up-%:
 	docker compose up -d $*
 .PHONY: up-%
+
+# build with github actions
+ci-build:
+	docker compose build --pull
+.PHONY: ci-build
+
+# build with github actions
+ci-push:
+	docker compose push
+.PHONY: ci-push
+
+ci-images:
+	docker images ls -a
+.PHONY: ci-images

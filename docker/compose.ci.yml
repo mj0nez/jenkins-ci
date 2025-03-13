@@ -7,8 +7,8 @@ services:
       dockerfile: docker/Dockerfile.controller
       context: ../
       tags:
-        - mj0nez/jenkins-ci:${JENKINS_VERSION}-controller
-    image: mj0nez/jenkins-ci:${JENKINS_VERSION}-controller
+        - mj0nez/jenkins-ci:${JENKINS_VERSION}
+    image: mj0nez/jenkins-ci:${JENKINS_VERSION}
 
   # agent-debian:
   #   build:

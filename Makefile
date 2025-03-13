@@ -2,7 +2,7 @@
 export JENKINS_VERSION?=2.501-jdk21
 export APP_VERSION?=latest
 # renovate-gh: datasource=github-releases packageName=hashicorp/nomad
-export NOMAD_VERSION?=1.9.5
+export NOMAD_VERSION?=1.9.7
 
 export COMPOSE_PROJECT_NAME:=jenkins
 export COMPOSE_FILE:=docker/docker-compose.ci.yml

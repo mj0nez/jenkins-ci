@@ -76,7 +76,7 @@ ENTRYPOINT [ "docker-init", "--", "/usr/local/bin/entrypoint-cstm.sh" ]
 CMD ["/usr/local/bin/jenkins-agent"]
 
 
-FROM debian:12.9-slim AS nomad-loader
+FROM debian:12.10-slim AS nomad-loader
 
 
 ARG NOMAD_VERSION

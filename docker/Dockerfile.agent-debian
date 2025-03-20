@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM docker:28.0.1-dind-alpine3.21 AS dind
+FROM docker:28.0.2-dind-alpine3.21 AS dind
 
 FROM jenkins/inbound-agent:bookworm-jdk21 AS base
 

@@ -30,6 +30,10 @@ up-%:
 	docker compose up -d $*
 .PHONY: up-%
 
+config:
+	docker compose config
+.PHONY: config
+
 # build with github actions
 ci-build:
 	docker compose build --pull

@@ -1,8 +1,10 @@
 # renovate: datasource=docker packageName=jenkins/jenkins versioning=docker
 export JENKINS_VERSION?=2.505-jdk21
 export APP_VERSION?=latest
-# renovate-gh: datasource=github-releases packageName=hashicorp/nomad
-export NOMAD_VERSION?=1.9.7
+# renovate: datasource=github-releases packageName=hashicorp/nomad
+export NOMAD_VERSION?=1.9.6
+# renovate: datasource=github-tags packageName=golang/go extractVersion=^go(?<version>.*)$
+export GOLANG_VERSION?=1.2.3
 
 export COMPOSE_PROJECT_NAME:=jenkins
 export COMPOSE_FILE:=docker/docker-compose.ci.yml

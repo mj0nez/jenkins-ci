@@ -146,6 +146,9 @@ ENV GOTOOLCHAIN="local"
 ENV GOPATH="/root/.cache/go"
 ENV PATH="$GOPATH:/usr/local/go/bin:$PATH"
 
+# TODO: it seems that the '--link' option crashes the actions run
+# it could be that adding intermediate layers per copy directive requires just to much resources 
+# for public runners
 COPY --from=go /usr/local/go /usr/local/go
 
 # nomad

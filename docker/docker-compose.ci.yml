@@ -26,16 +26,16 @@ services:
         - mj0nez/jenkins-agent:bookworm-all-mighty
     image: mj0nez/jenkins-agent:${APP_VERSION}-bookworm-all-mighty
 
-  agent-alpine:
-    build:
-      dockerfile: docker/Dockerfile.agent-alpine
-      context: ../
-      args:
-        NOMAD_VERSION: ${NOMAD_VERSION}
-      target: all-mighty
-      tags:
-        - mj0nez/jenkins-agent:${APP_VERSION}-alpine-all-mighty
-        - mj0nez/jenkins-agent:${APP_VERSION}-alpine-all-mighty-${JENKINS_VERSION}
-        - mj0nez/jenkins-agent:alpine-all-mighty-${JENKINS_VERSION}
-        - mj0nez/jenkins-agent:alpine-all-mighty
-    image: mj0nez/jenkins-agent:${APP_VERSION}-alpine-all-mighty
+  # agent-alpine:
+  #   build:
+  #     dockerfile: docker/Dockerfile.agent-alpine
+  #     context: ../
+  #     args:
+  #       NOMAD_VERSION: ${NOMAD_VERSION}
+  #     target: all-mighty
+  #     tags:
+  #       - mj0nez/jenkins-agent:${APP_VERSION}-alpine-all-mighty
+  #       - mj0nez/jenkins-agent:${APP_VERSION}-alpine-all-mighty-${JENKINS_VERSION}
+  #       - mj0nez/jenkins-agent:alpine-all-mighty-${JENKINS_VERSION}
+  #       - mj0nez/jenkins-agent:alpine-all-mighty
+  #   image: mj0nez/jenkins-agent:${APP_VERSION}-alpine-all-mighty

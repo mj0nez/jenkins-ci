@@ -4,7 +4,7 @@ export APP_VERSION?=latest
 # renovate: datasource=github-releases packageName=hashicorp/nomad
 export NOMAD_VERSION?=1.9.6
 # renovate: datasource=github-tags packageName=golang/go extractVersion=^go(?<version>.*)$
-export GOLANG_VERSION?=1.2.3
+export GOLANG_VERSION?=1.24.2
 
 export COMPOSE_PROJECT_NAME:=jenkins
 export COMPOSE_FILE:=docker/docker-compose.ci.yml

@@ -17,7 +17,7 @@ services:
       context: ../
       args:
         NOMAD_VERSION: ${NOMAD_VERSION}
-        GOLANG_VERSION: "1.24.1"
+        GOLANG_VERSION: ${GOLANG_VERSION}
       target: all-mighty
       tags:
         - mj0nez/jenkins-agent:${APP_VERSION}-bookworm-all-mighty

@@ -149,7 +149,7 @@ ENV PATH="$GOPATH:/usr/local/go/bin:$PATH"
 COPY --from=go --link /usr/local/go /usr/local/go
 
 # nomad
-COPY --from=nomad-loader --chown=jenkins:jenkins --link /tmp/nomad/nomad /usr/local/bin/nomad
+COPY --from=nomad-loader --chown=jenkins:jenkins /tmp/nomad/nomad /usr/local/bin/nomad
 
 # COPY --from=mc --link /usr/bin/mc /usr/bin/mc
 # COPY --from=mc --link /licenses/CREDITS /licenses/CREDITS

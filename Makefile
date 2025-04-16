@@ -6,6 +6,12 @@ export NOMAD_VERSION?=1.9.7
 # renovate: datasource=github-tags packageName=golang/go extractVersion=^go(?<version>.*)$
 export GOLANG_VERSION?=1.24.2
 
+# renovate: datasource=github-tags packageName=astral-sh/uv
+export UV_VERSION?=0.6.13
+
+# renovate: datasource=github-tags packageName=python/cpython
+export PYTHON_311_VERSION?=3.11.11
+
 export COMPOSE_PROJECT_NAME:=jenkins
 export COMPOSE_FILE:=docker/docker-compose.ci.yml
 

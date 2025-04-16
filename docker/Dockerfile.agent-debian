@@ -125,21 +125,23 @@ FROM golang:${GOLANG_VERSION}-bookworm AS go
 
 FROM base AS all-mighty
 
-ARG GOLANG_VERSION
-
-
 # python
+ARG UV_VERSION
+ARG PYTHON_311_VERSION
+
 ENV XDG_BIN_HOME=/usr/local/bin \
     UV_NO_MODIFY_PATH=1
 
-RUN curl -LsSf https://astral.sh/uv/install.sh | bash -s -- -v
+RUN curl -LsSf https://astral.sh/uv/${UV_VERSION}/install.sh | bash -s -- -v
 RUN uv --version \
     && uv python install \
-    3.11 \
-    3.12 \
-    3.13
-
+        ${PYTHON_311_VERSION} \
+        3.12 \
+        3.13
+    
 # go
+ARG GOLANG_VERSION
+
 ENV GOLANG_VERSION="${GOLANG_VERSION}"
 ENV GOTOOLCHAIN="local"
 # defaults to $HOME/go but we want under ~/.cache/go to make caching easier

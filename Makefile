@@ -16,7 +16,7 @@ export UV_VERSION?=0.6.13
 # Before bumping you should check UV's release notes. 
 
 # renovate: datasource=docker packageName=python versioning=docker
-export PYTHON_311_VERSION?=3.11.11
+export PYTHON_311_VERSION?=3.11.12
 # renovate: datasource=docker packageName=python versioning=docker
 export PYTHON_312_VERSION?=3.12.10
 # renovate: datasource=docker packageName=python versioning=docker

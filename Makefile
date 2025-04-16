@@ -7,7 +7,7 @@ export NOMAD_VERSION?=1.9.7
 export GOLANG_VERSION?=1.24.2
 
 # renovate: datasource=github-tags packageName=astral-sh/uv
-export UV_VERSION?=0.6.13
+export UV_VERSION?=0.6.14
 
 # renovate: datasource=docker packageName=python versioning=docker
 export PYTHON_311_VERSION?=3.11.11

@@ -10,7 +10,7 @@ export GOLANG_VERSION?=1.24.2
 export UV_VERSION?=0.6.13
 
 # renovate: datasource=github-tags packageName=python/cpython matchUpdateTypes=patch
-export PYTHON_311_VERSION?=3.11.11
+export PYTHON_311_VERSION?=3.13.3
 export PYTHON_312_VERSION?=3.12.9
 export PYTHON_313_VERSION?=3.13.2
 

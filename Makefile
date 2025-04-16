@@ -9,6 +9,12 @@ export GOLANG_VERSION?=1.24.2
 # renovate: datasource=github-tags packageName=astral-sh/uv
 export UV_VERSION?=0.6.13
 
+# We use UV to install the different python versions,
+# but they release them in a https://github.com/astral-sh/python-build-standalone
+# which follows more or less pythons release cycle, but it's not guaranteed that
+# both projects release simultaneously. For our use case this should be ok
+# Before bumping you should check UV's release notes. 
+
 # renovate: datasource=docker packageName=python versioning=docker
 export PYTHON_311_VERSION?=3.11.11
 # renovate: datasource=docker packageName=python versioning=docker

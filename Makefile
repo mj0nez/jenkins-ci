@@ -9,7 +9,7 @@ export GOLANG_VERSION?=1.24.2
 # renovate: datasource=github-tags packageName=astral-sh/uv
 export UV_VERSION?=0.6.13
 
-# renovate: datasource=github-tags packageName=python/cpython
+# renovate: datasource=docker packageName=python versioning=docker
 export PYTHON_311_VERSION?=3.11.11
 
 export COMPOSE_PROJECT_NAME:=jenkins

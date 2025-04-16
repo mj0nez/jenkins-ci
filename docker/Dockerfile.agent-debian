@@ -104,8 +104,8 @@ ADD https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NOMAD_VERSION}
 
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends \
-    gnupg \
-    unzip \
+        gnupg \
+        unzip \
     && GNUPGHOME="$(mktemp -d)" \
     && export GNUPGHOME \
     && gpg --keyserver pgp.mit.edu --keyserver keys.openpgp.org --keyserver keyserver.ubuntu.com --recv-keys "C874 011F 0AB4 0511 0D02 1055 3436 5D94 72D7 468F" \
@@ -128,6 +128,8 @@ FROM base AS all-mighty
 # python
 ARG UV_VERSION
 ARG PYTHON_311_VERSION
+ARG PYTHON_312_VERSION
+ARG PYTHON_313_VERSION
 
 ENV XDG_BIN_HOME=/usr/local/bin \
     UV_NO_MODIFY_PATH=1
@@ -136,9 +138,9 @@ RUN curl -LsSf https://astral.sh/uv/${UV_VERSION}/install.sh | bash -s -- -v
 RUN uv --version \
     && uv python install \
         ${PYTHON_311_VERSION} \
-        3.12 \
-        3.13
-    
+        ${PYTHON_312_VERSION} \
+        ${PYTHON_313_VERSION}
+
 # go
 ARG GOLANG_VERSION
 

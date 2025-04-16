@@ -3,9 +3,13 @@
   "packageRules": [
     {
       "enabled": false,
-      "matchDatasources": ["docker"],
       "matchPackageNames": ["python"],
       "matchUpdateTypes": ["major", "minor"]
+    },
+    {
+      "enabled": true,
+      "matchPackageNames": ["python"],
+      "matchUpdateTypes": ["patch"]
     }
   ]
 }

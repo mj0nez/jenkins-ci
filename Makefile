@@ -7,7 +7,7 @@ export NOMAD_VERSION?=1.10.0
 export GOLANG_VERSION?=1.24.2
 
 # renovate: datasource=github-tags packageName=astral-sh/uv
-export UV_VERSION?=0.7.2
+export UV_VERSION?=0.7.3
 
 # We use UV to install the different python versions,
 # but they release them in a https://github.com/astral-sh/python-build-standalone

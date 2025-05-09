@@ -4,7 +4,7 @@ export APP_VERSION?=latest
 # renovate: datasource=github-releases packageName=hashicorp/nomad
 export NOMAD_VERSION?=1.10.0
 # renovate: datasource=github-tags packageName=golang/go extractVersion=^go(?<version>.*)$
-export GOLANG_VERSION?=1.24.2
+export GOLANG_VERSION?=1.24.3
 
 # renovate: datasource=github-tags packageName=astral-sh/uv
 export UV_VERSION?=0.7.3

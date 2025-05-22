@@ -87,7 +87,7 @@ CMD ["/usr/local/bin/jenkins-agent"]
 
 # the nomad installation follows the multani/docker-nomad project,
 # we download the oss binary (musl is enterprise only) and add it to our agent
-FROM debian:12.10-slim AS nomad-loader
+FROM debian:12.11-slim AS nomad-loader
 
 
 ARG NOMAD_VERSION

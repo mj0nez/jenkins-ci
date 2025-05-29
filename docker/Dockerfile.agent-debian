@@ -146,9 +146,11 @@ ARG GOLANG_VERSION
 
 ENV GOLANG_VERSION="${GOLANG_VERSION}"
 ENV GOTOOLCHAIN="local"
-# defaults to $HOME/go but we want under ~/.cache/go to make caching easier
+# defaults to $HOME/go but we want under ~/.cache/go to make caching of dependencies easier
 ENV GOPATH="/root/.cache/go"
-ENV PATH="$GOPATH:/usr/local/go/bin:$PATH"
+# move the build cache to an ephemeral path
+ENV GOCACHE="/tmp/go-build"
+ENV PATH="$GOPATH/bin:/usr/local/go/bin:$PATH"
 
 # TODO: it seems that the '--link' option crashes the actions run
 # it could be that adding intermediate layers per copy directive requires just to much resources 

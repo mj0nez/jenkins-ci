@@ -158,10 +158,12 @@ ENV PATH="$GOPATH/bin:/usr/local/go/bin:$PATH"
 # for public runners
 COPY --from=go /usr/local/go /usr/local/go
 
-# binary will be $(go env GOPATH)/bin/golangci-lint
-RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b $(go env GOPATH)/bin v${GOLANGCI_LINT_VERSION}
+# binary will be /usr/local/go/bin/golangci-lint, normally this is for official binaries
+# but because we want to cache our tools and not overwrite this one, it should be ok
+RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b /usr/local/go/bin v${GOLANGCI_LINT_VERSION}
 RUN go version && \
     golangci-lint version
+
 # nomad
 COPY --from=nomad-loader --chown=jenkins:jenkins /tmp/nomad/nomad /usr/local/bin/nomad
 

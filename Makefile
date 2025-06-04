@@ -20,7 +20,7 @@ export UV_VERSION?=0.7.10
 # renovate: datasource=docker packageName=python versioning=docker
 export PYTHON_311_VERSION?=3.11.12
 # renovate: datasource=docker packageName=python versioning=docker
-export PYTHON_312_VERSION?=3.12.10
+export PYTHON_312_VERSION?=3.12.11
 # renovate: datasource=docker packageName=python versioning=docker
 export PYTHON_313_VERSION?=3.13.3
 

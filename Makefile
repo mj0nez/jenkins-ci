@@ -15,7 +15,7 @@ export UV_VERSION?=0.7.19
 # but they release them in a https://github.com/astral-sh/python-build-standalone
 # which follows more or less pythons release cycle, but it's not guaranteed that
 # both projects release simultaneously. For our use case this should be ok
-# Before bumping you should check UV's release notes. 
+# Before bumping you should check UV's release notes.
 
 # renovate: datasource=docker packageName=python versioning=docker
 export PYTHON_311_VERSION?=3.11.13
@@ -25,7 +25,7 @@ export PYTHON_312_VERSION?=3.12.11
 export PYTHON_313_VERSION?=3.13.5
 
 export COMPOSE_PROJECT_NAME:=jenkins
-export COMPOSE_FILE:=docker/docker-compose.ci.yml
+export COMPOSE_FILE:=docker/compose.ci.yml
 
 # local build
 build: CACHE=

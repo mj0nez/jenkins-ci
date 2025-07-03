@@ -6,6 +6,8 @@ services:
     build:
       dockerfile: docker/Dockerfile.controller
       context: ../
+      args:
+        JENKINS_VERSION: ${JENKINS_VERSION}
       tags:
         - mj0nez/jenkins-ci:${JENKINS_VERSION}
         - mj0nez/jenkins-ci:${APP_VERSION}

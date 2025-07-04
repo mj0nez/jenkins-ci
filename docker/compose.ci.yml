@@ -28,8 +28,6 @@ services:
       target: all-mighty
       tags:
         - mj0nez/jenkins-agent:${APP_VERSION}-bookworm-all-mighty
-        - mj0nez/jenkins-agent:${APP_VERSION}-bookworm-all-mighty-${JENKINS_VERSION}
-        - mj0nez/jenkins-agent:bookworm-all-mighty-${JENKINS_VERSION}
         - mj0nez/jenkins-agent:bookworm-all-mighty
     image: mj0nez/jenkins-agent:${APP_VERSION}-bookworm-all-mighty
 

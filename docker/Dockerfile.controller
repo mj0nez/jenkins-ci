@@ -1,2 +1,3 @@
 # syntax=docker/dockerfile:1
-FROM jenkins/jenkins:2.517-jdk21 AS base
+ARG JENKINS_VERSION
+FROM jenkins/jenkins:${JENKINS_VERSION} AS base

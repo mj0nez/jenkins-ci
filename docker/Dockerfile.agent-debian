@@ -117,7 +117,7 @@ RUN apt-get update \
 
 
 # # s3 compatible cli-tool from minio
-FROM minio/mc:RELEASE.2025-04-08T15-39-49Z AS mc 
+FROM minio/mc:RELEASE.2025-04-08T15-39-49Z AS mc
 
 # go we can fetch from the official docker image
 ARG GOLANG_VERSION
@@ -154,7 +154,7 @@ ENV GOCACHE="/tmp/go-build"
 ENV PATH="$GOPATH/bin:/usr/local/go/bin:$PATH"
 
 # TODO: it seems that the '--link' option crashes the actions run
-# it could be that adding intermediate layers per copy directive requires just to much resources 
+# it could be that adding intermediate layers per copy directive requires just to much resources
 # for public runners
 COPY --from=go /usr/local/go /usr/local/go
 

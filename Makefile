@@ -2,7 +2,7 @@
 export JENKINS_VERSION?=2.517-jdk21
 export APP_VERSION?=latest
 # renovate: datasource=github-releases packageName=hashicorp/nomad
-export NOMAD_VERSION?=1.10.2
+export NOMAD_VERSION?=1.10.3
 # renovate: datasource=github-tags packageName=golang/go extractVersion=^go(?<version>.*)$
 export GOLANG_VERSION?=1.24.4
 # renovate: datasource=github-releases packageName=golangci/golangci-lint

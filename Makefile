@@ -6,7 +6,7 @@ export NOMAD_VERSION?=1.10.3
 # renovate: datasource=github-tags packageName=golang/go extractVersion=^go(?<version>.*)$
 export GOLANG_VERSION?=1.24.5
 # renovate: datasource=github-releases packageName=golangci/golangci-lint
-export GOLANGCI_LINT_VERSION?=2.3.1
+export GOLANGCI_LINT_VERSION?=2.4.0
 
 # renovate: datasource=github-tags packageName=astral-sh/uv
 export UV_VERSION?=0.8.5

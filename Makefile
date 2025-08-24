@@ -4,7 +4,7 @@ export APP_VERSION?=latest
 # renovate: datasource=github-releases packageName=hashicorp/nomad
 export NOMAD_VERSION?=1.10.4
 # renovate: datasource=github-tags packageName=golang/go extractVersion=^go(?<version>.*)$
-export GOLANG_VERSION?=1.24.5
+export GOLANG_VERSION?=1.25.0
 # renovate: datasource=github-releases packageName=golangci/golangci-lint
 export GOLANGCI_LINT_VERSION?=2.4.0
 

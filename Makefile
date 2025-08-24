@@ -9,7 +9,7 @@ export GOLANG_VERSION?=1.24.5
 export GOLANGCI_LINT_VERSION?=2.4.0
 
 # renovate: datasource=github-tags packageName=astral-sh/uv
-export UV_VERSION?=0.8.5
+export UV_VERSION?=0.8.13
 
 # We use UV to install the different python versions,
 # but they release them in a https://github.com/astral-sh/python-build-standalone

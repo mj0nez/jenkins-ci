@@ -1,4 +1,7 @@
 # syntax=docker/dockerfile:1
+# We keep these versions here because docker is picky about arguments in FROM stages
+# while they are never used and env vars successfully override them, evaluation fails.
+ARG CONSUL_VERSION="1.25.5"
 ARG GOLANG_VERSION="1.24.1"
 FROM docker:28.2.2-dind-alpine3.21 AS dind
 
@@ -9,42 +12,42 @@ USER root
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
-    build-essential \
-    ca-certificates \
-    tree \
-    jq \
-    parallel \
-    sshpass \
-    zip \
-    unzip \
-    time \
-    iputils-ping \
-    traceroute \
-    dnsutils \
-    netcat-openbsd \
-    iptables \
-    pigz \
-    xz-utils \
-    # docker-dind
-    btrfs-progs \
-    e2fsprogs \
-    git \
-    iptables \
-    iproute2 \
-    net-tools \
-    openssl \
-    pigz \
-    xfsprogs \
-    # dev
-    htop \
-    procps \
-    findutils \
-    # cgo
-    g++ \
-    gcc \
-    libc6-dev \
-    make \
-    pkg-config \
+        build-essential \
+        ca-certificates \
+        tree \
+        jq \
+        parallel \
+        sshpass \
+        zip \
+        unzip \
+        time \
+        iputils-ping \
+        traceroute \
+        dnsutils \
+        netcat-openbsd \
+        iptables \
+        pigz \
+        xz-utils \
+        # docker-dind
+        btrfs-progs \
+        e2fsprogs \
+        git \
+        iptables \
+        iproute2 \
+        net-tools \
+        openssl \
+        pigz \
+        xfsprogs \
+        # dev
+        htop \
+        procps \
+        findutils \
+        # cgo
+        g++ \
+        gcc \
+        libc6-dev \
+        make \
+        pkg-config \
     ; \
     rm -rf /var/lib/apt/lists/*
 
@@ -116,6 +119,9 @@ RUN apt-get update \
     && rm -rf "$GNUPGHOME" nomad_${NOMAD_VERSION}_${TARGETOS}_${TARGETARCH}.zip nomad_${NOMAD_VERSION}_SHA256SUMS nomad_${NOMAD_VERSION}_SHA256SUMS.sig
 
 
+ARG CONSUL_VERSION
+FROM hashicorp/consul:${CONSUL_VERSION} AS consul
+
 # # s3 compatible cli-tool from minio
 FROM minio/mc:RELEASE.2025-04-08T15-39-49Z AS mc
 
@@ -166,6 +172,8 @@ RUN go version && \
 
 # nomad
 COPY --from=nomad-loader --chown=jenkins:jenkins /tmp/nomad/nomad /usr/local/bin/nomad
+# consul
+COPY --from=consul --chown=jenkins:jenkins /bin/consul /usr/local/bin/consul
 
 COPY --from=mc /usr/bin/mc /usr/bin/mc
 COPY --from=mc /licenses/CREDITS /licenses/CREDITS

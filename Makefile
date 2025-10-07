@@ -6,7 +6,7 @@ export NOMAD_VERSION?=1.10.5
 # renovate: datasource=docker packageName=hashicorp/consul versioning=docker
 export CONSUL_VERSION?=1.21.4
 # renovate: datasource=github-tags packageName=golang/go extractVersion=^go(?<version>.*)$
-export GOLANG_VERSION?=1.25.1
+export GOLANG_VERSION?=1.25.2
 # renovate: datasource=github-releases packageName=golangci/golangci-lint
 export GOLANGCI_LINT_VERSION?=2.5.0
 

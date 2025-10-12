@@ -25,6 +25,8 @@ export PYTHON_311_VERSION?=3.11.14
 export PYTHON_312_VERSION?=3.12.12
 # renovate: datasource=docker packageName=python versioning=docker
 export PYTHON_313_VERSION?=3.13.8
+# renovate: datasource=docker packageName=python versioning=docker
+export PYTHON_314_VERSION?=3.14.0
 
 export COMPOSE_PROJECT_NAME:=jenkins
 export COMPOSE_FILE:=docker/compose.ci.yml

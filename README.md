@@ -1,5 +1,7 @@
 # Jenkins-CI
 
+**Archived because I mvoed to Forgejo & Forgejo-Actions.**
+
 Custom images to setup Jenkins based CI and automation in my homelab.
 
 ## Quick-Links

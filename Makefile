@@ -2,7 +2,7 @@
 export JENKINS_VERSION?=2.532-jdk21
 export APP_VERSION?=latest
 # renovate: datasource=github-releases packageName=hashicorp/nomad
-export NOMAD_VERSION?=1.10.5
+export NOMAD_VERSION?=1.11.0
 # renovate: datasource=docker packageName=hashicorp/consul versioning=docker
 export CONSUL_VERSION?=1.21.5
 # renovate: datasource=github-tags packageName=golang/go extractVersion=^go(?<version>.*)$
